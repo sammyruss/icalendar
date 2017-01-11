@@ -21,10 +21,14 @@ defmodule ICalendar.Util.Deserialize do
   """
   def retrieve_kvs(line) do
     # Split Line up into key and value
-    [key, value] = String.split(line, ":", parts: 2, trim: true)
-    [key, params] = retrieve_params(key)
-
-    %Property{key: String.upcase(key), value: value, params: params}
+    case String.split(line, ":", parts: 2, trim: true) do
+      [key, value] ->
+        [key, params] = retrieve_params(key)
+        %Property{key: String.upcase(key), value: value, params: params}
+      _ ->
+      [key, params] = retrieve_params(line)
+        %Property{key: String.upcase(key), params: params}
+    end
   end
 
   @doc ~S"""
