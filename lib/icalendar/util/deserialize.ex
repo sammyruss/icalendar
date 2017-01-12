@@ -64,7 +64,7 @@ defmodule ICalendar.Util.Deserialize do
     %{acc | description: desanitized(description)}
   end
   def parse_attr(
-    %Property{key: "UID", value: uid},
+    %Property{key: "UID", params: params, value: uid},
     acc
   ) do
     %{acc | uid: desanitized(uid)}
